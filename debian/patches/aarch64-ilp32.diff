@@ -1,0 +1,33 @@
+# DP: Update Aarch64 ilp32 linker and libdir names.
+
+ld/
+
+2014-02-11  Andrew Pinski  <apinski@cavium.com>
+
+	* emulparams/aarch64linux32.sh (LIBPATH_SUFFIX): Change to ilp32.
+	(ELF_INTERPRETER_NAME): Define.
+	* emulparams/aarch64linux32b.sh (ELF_INTERPRETER_NAME): Define.
+
+diff --git a/ld/emulparams/aarch64linux32.sh b/ld/emulparams/aarch64linux32.sh
+index 573b432..b84eb45 100644
+--- a/ld/emulparams/aarch64linux32.sh
++++ b/ld/emulparams/aarch64linux32.sh
+@@ -41,7 +41,9 @@ PLT=".plt          ${RELOCATING-0} : ALIGN(16) { *(.plt)${IREL_IN_PLT+ *(.iplt)}
+ case "$target" in
+   aarch64*-linux*)
+     case "$EMULATION_NAME" in
+-      aarch64linux*) LIBPATH_SUFFIX=32 ;;
++      aarch64linux*) LIBPATH_SUFFIX=ilp32 ;;
+     esac
+     ;;
+ esac
++
++ELF_INTERPRETER_NAME=\"/lib/ld-linux-aarch64_ilp32.so.1\"
+diff --git a/ld/emulparams/aarch64linux32b.sh b/ld/emulparams/aarch64linux32b.sh
+index f878b18..e92feec 100644
+--- a/ld/emulparams/aarch64linux32b.sh
++++ b/ld/emulparams/aarch64linux32b.sh
+@@ -1,2 +1,3 @@
+ . ${srcdir}/emulparams/aarch64linux32.sh
+ OUTPUT_FORMAT="elf32-bigaarch64"
++ELF_INTERPRETER_NAME=\"/lib/ld-linux-aarch64_be_ilp32.so.1\"

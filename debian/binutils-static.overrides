@@ -1,0 +1,5 @@
+# yes, it's embedded
+binutils-static binary: embedded-zlib
+
+# not needed
+binutils-static binary: binary-without-manpage

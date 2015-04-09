@@ -1,0 +1,2 @@
+# yes, it's embedded
+binutils-static-udeb udeb: embedded-zlib

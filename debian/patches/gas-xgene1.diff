@@ -1,0 +1,14 @@
+# DP: gas: Add entry for "xgene1" (AArch64).
+
+Index: b/gas/config/tc-aarch64.c
+===================================================================
+--- a/gas/config/tc-aarch64.c
++++ b/gas/config/tc-aarch64.c
+@@ -7137,6 +7137,7 @@
+   {"all", AARCH64_ANY, NULL},
+   {"cortex-a53",	AARCH64_ARCH_V8, "Cortex-A53"},
+   {"cortex-a57",	AARCH64_ARCH_V8, "Cortex-A57"},
++  {"xgene1",  AARCH64_ARCH_V8, "APM X-Gene 1"},
+   {"generic", AARCH64_ARCH_V8, NULL},
+ 
+   /* These two are example CPUs supported in GCC, once we have real

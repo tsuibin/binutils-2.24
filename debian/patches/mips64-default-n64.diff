@@ -1,0 +1,52 @@
+Index: b/bfd/config.bfd
+===================================================================
+--- a/bfd/config.bfd
++++ b/bfd/config.bfd
+@@ -1052,6 +1052,16 @@
+     targ_defvec=bfd_elf32_bigmips_vec
+     targ_selvecs="bfd_elf32_littlemips_vec bfd_elf64_bigmips_vec bfd_elf64_littlemips_vec ecoff_big_vec ecoff_little_vec"
+     ;;
++  mips64*el-*-linux*-gnuabi64)
++    targ_defvec=bfd_elf64_tradlittlemips_vec
++    targ_selvecs="bfd_elf32_ntradbigmips_vec bfd_elf32_tradlittlemips_vec bfd_elf32_tradbigmips_vec bfd_elf32_ntradlittlemips_vec bfd_elf64_tradbigmips_vec"
++    want64=true
++    ;;
++  mips64*-*-linux*-gnuabi64)
++    targ_defvec=bfd_elf64_tradbigmips_vec
++    targ_selvecs="bfd_elf32_ntradlittlemips_vec bfd_elf32_tradbigmips_vec bfd_elf32_tradlittlemips_vec bfd_elf32_ntradbigmips_vec bfd_elf64_tradlittlemips_vec"
++    want64=true
++    ;;
+   mips64*el-*-linux*)
+     targ_defvec=bfd_elf32_ntradlittlemips_vec
+     targ_selvecs="bfd_elf32_ntradbigmips_vec bfd_elf32_tradlittlemips_vec bfd_elf32_tradbigmips_vec bfd_elf64_tradlittlemips_vec bfd_elf64_tradbigmips_vec"
+Index: b/gas/configure.in
+===================================================================
+--- a/gas/configure.in
++++ b/gas/configure.in
+@@ -266,6 +266,9 @@
+ 	esac
+ 	# Decide which ABI to target by default.
+ 	case ${target} in
++	  mips64*-linux-gnuabi64)
++	    mips_default_abi=N64_ABI
++	    ;;
+ 	  mips64*-linux* | mips-sgi-irix6* | mips64*-freebsd* | mips64*-kfreebsd*-gnu)
+ 	    mips_default_abi=N32_ABI
+ 	    ;;
+Index: b/ld/configure.tgt
+===================================================================
+--- a/ld/configure.tgt
++++ b/ld/configure.tgt
+@@ -469,6 +469,12 @@
+ mips*-*-vxworks*)	targ_emul=elf32ebmipvxworks
+ 		        targ_extra_emuls="elf32elmipvxworks" ;;
+ mips*-*-windiss)	targ_emul=elf32mipswindiss ;;
++mips64*el-*-linux-gnuabi64)	targ_emul=elf64ltsmip
++			targ_extra_emuls="elf32btsmipn32 elf32ltsmip elf32btsmip elf32ltsmipn32 elf64btsmip"
++			targ_extra_libpath=$targ_extra_emuls ;;
++mips64*-*-linux-gnuabi64)	targ_emul=elf64btsmip
++			targ_extra_emuls="elf32ltsmipn32 elf32btsmip elf32ltsmip elf32btsmipn32 elf64ltsmip"
++			targ_extra_libpath=$targ_extra_emuls ;;
+ mips64*el-*-linux-*)	targ_emul=elf32ltsmipn32
+ 			targ_extra_emuls="elf32btsmipn32 elf32ltsmip elf32btsmip elf64ltsmip elf64btsmip"
+ 			targ_extra_libpath=$targ_extra_emuls ;;
